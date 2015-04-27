@@ -60,8 +60,6 @@ public class Test extends JFrame {
 		contentPane.add(label);
 		
 		JButton helloButton = new JButton("Hello.");
-		
-		
 
 		helloButton.setBorder(BorderFactory.createEmptyBorder());
 		helloButton.setContentAreaFilled(false);
@@ -83,9 +81,8 @@ public class Test extends JFrame {
 		helloButton.setBounds(10, 11, 64, 64);
 		contentPane.add(helloButton);
 		
-		
-		
-		
-		
+		//helloButton.setFocusable(false);
+		helloButton.setBorderPainted(false);
+		//helloButton.setRolloverEnabled(false);
 	}
 }

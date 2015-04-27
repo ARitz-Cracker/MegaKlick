@@ -5,6 +5,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 
 public class Test extends JFrame {
@@ -38,9 +43,22 @@ public class Test extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JLabel label = new JLabel("");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setBounds(112, 144, 200, 50);
+		contentPane.add(label);
+		
 		JButton btnHello = new JButton("Hello.");
-		btnHello.setBounds(160, 112, 89, 23);
+		btnHello.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				label.setText("Hi.");
+			}
+		});
+		btnHello.setBounds(168, 112, 89, 23);
 		contentPane.add(btnHello);
+		
+		
 		
 		
 	}

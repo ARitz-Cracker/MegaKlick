@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Test$1.class
 /Test.class
 /Test$2.class
@@ -7,3 +8,10 @@
 /Test$4.class
 /GameScreen$1.class
 /GameScreen.class
+=======
+/MainMenu.class
+/MainMenu$1.class
+/MainMenu$2.class
+/MainMenu$3.class
+/MainMenu$4.class
+>>>>>>> branch 'master' of https://github.com/ARitz-Cracker/MegaKlick.git

@@ -17,7 +17,7 @@ import java.io.IOException;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 
-public class Test extends JFrame {
+public class MainMenu extends JFrame {
 
 	private JPanel contentPane;
 	//private JButton instructionsButton;
@@ -29,7 +29,7 @@ public class Test extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Test frame = new Test();
+					MainMenu frame = new MainMenu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class Test extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Test() {
+	public MainMenu() {
 		try {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 300);

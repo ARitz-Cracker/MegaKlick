@@ -1,20 +1,27 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.SwingConstants;
+
 import java.awt.Color;
 
 public class MainMenu extends JFrame {
@@ -137,8 +144,9 @@ public class MainMenu extends JFrame {
 		//circleLabel.setRolloverEnabled(false);
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Unable to load files: " + e.getMessage(),"IOException", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+			//e.printStackTrace();
 		}
 	}
 }

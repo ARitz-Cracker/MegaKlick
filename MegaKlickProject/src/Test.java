@@ -69,7 +69,7 @@ public class Test extends JFrame {
 		instructionsButton.setBorder(BorderFactory.createEmptyBorder());
 		instructionsButton.setContentAreaFilled(false);
 		BufferedImage buttonIcon;
-		buttonIcon = ImageIO.read(new File("C:/Users/Henry/git/MegaKlick/content/circ.png"));
+		buttonIcon = ImageIO.read(new File("C:/megaklick/circ.png"));
 		instructionsButton = new JButton(new ImageIcon(buttonIcon));
 		
 		instructionsButton.addActionListener(new ActionListener() {
@@ -93,7 +93,7 @@ public class Test extends JFrame {
 		playButton.setBorder(BorderFactory.createEmptyBorder());
 		playButton.setContentAreaFilled(false);
 		BufferedImage buttonIcon2;
-		buttonIcon2 = ImageIO.read(new File("C:/Users/Henry/git/MegaKlick/content/tri.png"));
+		buttonIcon2 = ImageIO.read(new File("C:/megaklick/tri.png"));
 		playButton = new JButton(new ImageIcon(buttonIcon2));
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +115,7 @@ public class Test extends JFrame {
 		highscoresButton.setBorder(BorderFactory.createEmptyBorder());
 		highscoresButton.setContentAreaFilled(false);
 		BufferedImage buttonIcon3;
-		buttonIcon3 = ImageIO.read(new File("C:/Users/Henry/git/MegaKlick/content/diamond.png"));
+		buttonIcon3 = ImageIO.read(new File("C:/megaklick/diamond.png"));
 		highscoresButton = new JButton(new ImageIcon(buttonIcon3));
 		highscoresButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

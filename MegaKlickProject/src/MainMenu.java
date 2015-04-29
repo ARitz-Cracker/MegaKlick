@@ -72,16 +72,17 @@ public class MainMenu extends JFrame {
 		instructionText.setBounds(20, 200, 454, 50);
 		contentPane.add(instructionText);
 		
-		JButton instructionsButton = new JButton();
+		/*JButton instructionsButton = new JButton();
 		instructionsButton.setBorder(BorderFactory.createEmptyBorder());
-		instructionsButton.setContentAreaFilled(false);
+		instructionsButton.setContentAreaFilled(false);*/
 		BufferedImage buttonIcon;
 		buttonIcon = ImageIO.read(new File("C:/megaklick/circ.png"));
-		instructionsButton = new JButton(new ImageIcon(buttonIcon));
+		JButton instructionsButton = new JButton(new ImageIcon(buttonIcon));
 		
 		instructionsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				instructionText.setText("Insert instructions here.");
+				new InstructionsScreen();
+				//InstructionsScreen.setVisible(true);
 			}
 		});
 		instructionsButton.setBounds(40, 80, 64, 64);

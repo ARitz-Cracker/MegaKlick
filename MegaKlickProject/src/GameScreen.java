@@ -43,6 +43,7 @@ public class GameScreen extends JFrame {
 				try {
 					GameScreen frame = new GameScreen();
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -63,7 +64,7 @@ public class GameScreen extends JFrame {
 
 	  }
 	
-	//int[] marks = new int[4];
+	int[] marks = new int[4];
 	int clickedButtons = -1;
 	boolean playingGame = false;
 	JButton clickButton[] = fnButtonArray(20);
@@ -145,6 +146,7 @@ public class GameScreen extends JFrame {
 	}
 	JButton btnStartGeam;
 	public GameScreen() {
+		setTitle("MegaKlick Game");
 		setForeground(Color.WHITE);
 		setBackground(Color.BLACK);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

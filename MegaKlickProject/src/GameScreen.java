@@ -18,10 +18,20 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class GameScreen extends JFrame {
 
+	private static void pause(int time){
+		try {
+		    Thread.sleep(time);                 //1000 milliseconds is one second.
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
+	}
+	
 	private JPanel contentPane;
 
 	/**
@@ -75,9 +85,6 @@ public class GameScreen extends JFrame {
 			}
 		}
 		System.out.println(i);
-		clickButton[i] = new JButton();
-		clickButton[i].setBorder(BorderFactory.createEmptyBorder());
-		clickButton[i].setContentAreaFilled(false);
 		BufferedImage buttonIcon;
 		buttonIcon = ImageIO.read(new File("C:/megaklick/circ.png"));
 		clickButton[i] = new JButton(new ImageIcon(buttonIcon));
@@ -107,15 +114,7 @@ public class GameScreen extends JFrame {
 		}
 		
 	}
-	public void StartGame(){
-		playingGame = true;
-		double startTime = System.currentTimeMillis() + 1;
-		while(playingGame){
-			if(System.currentTimeMillis() <= startTime){
-				startTime = System.currentTimeMillis() + Math.random()*5;
-				AddButton();
-			}
-		}
+	public void EndGame(){
 		for (int i=0;i<1337;i+=1){
 			try{
 				if (clickButton[i] == null){
@@ -131,6 +130,20 @@ public class GameScreen extends JFrame {
 			}
 		}
 	}
+	Timer timer = new Timer();
+	public void StartGame(){
+		System.out.println("Game interval!");
+		timer.schedule(new TimerTask() {
+			  @Override
+			  public void run() {
+				  if (playingGame){
+					AddButton();
+				  	StartGame();
+				  }
+			  }
+			}, (long) (Math.random()*5000));
+	}
+	JButton btnStartGeam;
 	public GameScreen() {
 		setForeground(Color.WHITE);
 		setBackground(Color.BLACK);
@@ -142,8 +155,18 @@ public class GameScreen extends JFrame {
 		contentPane.setForeground(Color.WHITE);
 		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		btnStartGeam = new JButton("Ready?");
+		btnStartGeam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnStartGeam.setVisible(false);
+				btnStartGeam = null;
+				StartGame();
+			}
+		});
+		btnStartGeam.setBounds(312, 398, 240, 60);
+		contentPane.add(btnStartGeam);
 	}
-
 }

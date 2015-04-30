@@ -31,19 +31,38 @@ import java.awt.event.WindowEvent;
 
 public class MainMenu extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7038961076547386467L;
 	private JPanel contentPane;
 	//private JButton instructionsButton;
 
 	/**
 	 * Launch the application.
 	 */
+	
+	public void InstructionsFunction(){
+		InstructionsScreen instance1 = new InstructionsScreen();
+		instance1.setVisible(true);
+		instance1.setResizable(false);
+	}
+	public void HighscoresFunction(){
+		HighscoresScreen instance2 = new HighscoresScreen();
+		instance2.setVisible(true);
+		instance2.setResizable(false);
+	}
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					MainMenu frame = new MainMenu();
 					frame.setVisible(true);
 					frame.setResizable(false);
+					frame.setUndecorated(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -83,24 +102,18 @@ public class MainMenu extends JFrame {
 		lblInstructions.setBounds(169, 344, 109, 14);
 		contentPane.add(lblInstructions);
 		
-		JLabel instructionText = new JLabel("");
-		instructionText.setHorizontalAlignment(SwingConstants.CENTER);
-		instructionText.setForeground(Color.WHITE);
-		instructionText.setFont(new Font("Trajan Pro", Font.PLAIN, 11));
-		instructionText.setBounds(197, 478, 454, 50);
-		contentPane.add(instructionText);
-		
 		/*JButton instructionsButton = new JButton();
 		instructionsButton.setBorder(BorderFactory.createEmptyBorder());
 		instructionsButton.setContentAreaFilled(false);*/
 		BufferedImage buttonIcon;
-		buttonIcon = ImageIO.read(new File("C:/megaklick/circ.png"));
+		buttonIcon = ImageIO.read(new File("C:/megaklick/whiteCircle.png"));
 		JButton instructionsButton = new JButton(new ImageIcon(buttonIcon));
 		
 		instructionsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				InstructionsScreen instance1 = new InstructionsScreen();
-				instance1.setVisible(true);
+				InstructionsFunction();
+				/*InstructionsScreen instance1 = new InstructionsScreen();
+				instance1.setVisible(true);*/
 			}
 		});
 		instructionsButton.setBounds(190, 280, 64, 64);
@@ -119,11 +132,14 @@ public class MainMenu extends JFrame {
 		playButton.setBorder(BorderFactory.createEmptyBorder());
 		playButton.setContentAreaFilled(false);
 		BufferedImage buttonIcon2;
-		buttonIcon2 = ImageIO.read(new File("C:/megaklick/tri.png"));
+		buttonIcon2 = ImageIO.read(new File("C:/megaklick/whiteTriangle.png"));
 		playButton = new JButton(new ImageIcon(buttonIcon2));
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				instructionText.setText("Nothing here yet.");
+				GameScreen GameScreenInstance = new GameScreen();
+				GameScreenInstance.setResizable(false);
+				GameScreenInstance.setVisible(true);
+				GameScreenInstance.StartGame();
 			}
 		});
 		playButton.setBounds(392, 280, 64, 64);
@@ -141,11 +157,11 @@ public class MainMenu extends JFrame {
 		highscoresButton.setBorder(BorderFactory.createEmptyBorder());
 		highscoresButton.setContentAreaFilled(false);
 		BufferedImage buttonIcon3;
-		buttonIcon3 = ImageIO.read(new File("C:/megaklick/diamond.png"));
+		buttonIcon3 = ImageIO.read(new File("C:/megaklick/whiteDiamond.png"));
 		highscoresButton = new JButton(new ImageIcon(buttonIcon3));
 		highscoresButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				instructionText.setText("Highscores here.");
+				HighscoresFunction();
 			}
 		});
 		highscoresButton.setBounds(600, 280, 64, 64);

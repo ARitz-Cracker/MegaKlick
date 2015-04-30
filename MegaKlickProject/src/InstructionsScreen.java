@@ -14,10 +14,16 @@ import javax.swing.SwingConstants;
 
 import java.awt.Font;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class InstructionsScreen extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 757992310391046994L;
 	private JPanel contentPane;
 
 	/**
@@ -86,17 +92,5 @@ public class InstructionsScreen extends JFrame {
 		lblACertainTime.setForeground(Color.WHITE);
 		lblACertainTime.setBounds(192, 327, 444, 14);
 		contentPane.add(lblACertainTime);
-		
-		JButton btnBack = new JButton("");
-		btnBack.setForeground(Color.WHITE);
-		btnBack.setBounds(379, 414, 89, 23);
-		contentPane.add(btnBack);
-		
-		JLabel lblBack = new JLabel("Back");
-		lblBack.setForeground(Color.WHITE);
-		lblBack.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-		lblBack.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBack.setBounds(406, 448, 36, 15);
-		contentPane.add(lblBack);
 	}
 }

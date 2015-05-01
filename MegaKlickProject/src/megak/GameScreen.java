@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import megak.VariableTimerTask;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class GameScreen extends JFrame {
@@ -55,6 +57,14 @@ public class GameScreen extends JFrame {
 	 * Create the frame.
 	 * @return 
 	 */
+	public boolean InBetween(int min,int inp,int max){
+		return (min <= inp && inp <= max);
+	}
+	
+	public boolean TouchingBox(int b1x1,int b1x2,int b1y1,int b1y2,int b2x1,int b2x2,int b2y1,int b2y2){
+		return (InBetween(b2x1,b1x1,b2x2) || InBetween(b2x1,b1x2,b2x2) || InBetween(b1x1,b2x1,b1x2)|| InBetween(b1x1,b2x2,b1x2) ) && (InBetween(b2y1,b1y1,b2y2) || InBetween(b2y1,b1y2,b2y2) || InBetween(b1y1,b2y1,b1y2) || InBetween(b1y1,b2y2,b1y2));
+	}
+	
 	public JButton[] fnButtonArray(int m){
 		JButton arrButtons[] = new JButton[m];
 		for (int i=0;i<m;i+=1){
@@ -91,8 +101,6 @@ public class GameScreen extends JFrame {
 				}else{
 					i += 1;
 				}
-			}catch (NullPointerException e) {
-				noFreeSpace = false;
 			}catch (ArrayIndexOutOfBoundsException e){
 				return;
 			}
@@ -111,7 +119,7 @@ public class GameScreen extends JFrame {
 					clickButton[ii] = null;
 					clickButtonTimer[ii].cancel();
 					clickedButtons += 1;
-					spawnTime = (long) (spawnTime * 0.99);
+					spawnTime = (long) (spawnTime * 0.95);
 					if (clickedButtons > 199){
 						EndGame();
 					}
@@ -142,6 +150,8 @@ public class GameScreen extends JFrame {
 	}
 	public void EndGame(){
 		playingGame = false;
+		
+		/*
 		btnStartGeam = new JButton("Again?");
 		btnStartGeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -150,8 +160,10 @@ public class GameScreen extends JFrame {
 				StartGame();
 			}
 		});
+		
 		btnStartGeam.setBounds(312, 398, 240, 60);
 		contentPane.add(btnStartGeam);
+		*/
 		timer.cancel();
 		for (int i=0;true;i+=1){ //INFINITE i++!!!
 			try{
@@ -162,8 +174,6 @@ public class GameScreen extends JFrame {
 					clickButton[i] = null;
 					clickButtonTimer[i].cancel();
 				}
-			}catch (NullPointerException e) {
-				continue;
 			}catch (ArrayIndexOutOfBoundsException e){
 				break;
 			}
@@ -171,6 +181,7 @@ public class GameScreen extends JFrame {
 	}
 	
 	public void StartGame(){
+		this.setVisible(true);
 		playingGame = true;
 		System.out.println("Game interval!");
 		timer = new Timer();
@@ -186,10 +197,17 @@ public class GameScreen extends JFrame {
 	}
 	JButton btnStartGeam;
 	public GameScreen() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				EndGame();
+			}
+		});
+		
 		setTitle("MegaKlick Game");
 		setForeground(Color.WHITE);
 		setBackground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		setBounds(gd.getDisplayMode().getWidth()/2 - 864/2, gd.getDisplayMode().getHeight()/2 - 664/2, 864, 664);
 		//setBounds(100, 100, 864, 664);

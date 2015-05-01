@@ -29,6 +29,8 @@ import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import megak.GameScreen;
+
 public class MainMenu extends JFrame {
 
 	/**
@@ -136,10 +138,11 @@ public class MainMenu extends JFrame {
 		playButton = new JButton(new ImageIcon(buttonIcon2));
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameScreen GameScreenInstance = new GameScreen();
+				/*GameScreen GameScreenInstance = new GameScreen();
 				GameScreenInstance.setResizable(false);
 				GameScreenInstance.setVisible(true);
-				GameScreenInstance.StartGame();
+				GameScreenInstance.StartGame();*/
+				megak.GameScreen.main(null);
 			}
 		});
 		playButton.setBounds(392, 280, 64, 64);

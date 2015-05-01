@@ -99,7 +99,7 @@ public class GameScreen extends JFrame {
 		}
 		System.out.println(i);
 		BufferedImage buttonIcon;
-		buttonIcon = ImageIO.read(new File("C:/megaklick/circ.png"));
+		buttonIcon = ImageIO.read(new File("C:/megaklick/whiteCircle.png"));
 		clickButton[i] = new JButton(new ImageIcon(buttonIcon));
 		//clickButton[i].id = i;
 		clickButton[i].setActionCommand(Integer.toString(i));
@@ -189,7 +189,7 @@ public class GameScreen extends JFrame {
 		setTitle("MegaKlick Game");
 		setForeground(Color.WHITE);
 		setBackground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		setBounds(gd.getDisplayMode().getWidth()/2 - 864/2, gd.getDisplayMode().getHeight()/2 - 664/2, 864, 664);
 		//setBounds(100, 100, 864, 664);

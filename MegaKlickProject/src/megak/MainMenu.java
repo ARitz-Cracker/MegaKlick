@@ -44,18 +44,24 @@ public class MainMenu extends JFrame {
 	 * Launch the application.
 	 */
 	
+	InstructionsScreen instance1;
+	HighscoresScreen instance2;
+	GameScreen instance3;
 	public void InstructionsFunction(){
-		InstructionsScreen instance1 = new InstructionsScreen();
+		instance1 = new InstructionsScreen();
 		instance1.setVisible(true);
 		instance1.setResizable(false);
 	}
 	public void HighscoresFunction(){
-		HighscoresScreen instance2 = new HighscoresScreen();
+		instance2 = new HighscoresScreen();
 		instance2.setVisible(true);
 		instance2.setResizable(false);
 	}
-	
-	
+	public void GameFunction(){
+		instance3 = new GameScreen();
+		instance3.setVisible(true);
+		instance3.setResizable(false);
+	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -138,11 +144,13 @@ public class MainMenu extends JFrame {
 		playButton = new JButton(new ImageIcon(buttonIcon2));
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*GameScreen GameScreenInstance = new GameScreen();
-				GameScreenInstance.setResizable(false);
-				GameScreenInstance.setVisible(true);
-				GameScreenInstance.StartGame();*/
-				megak.GameScreen.main(null);
+				if (instance3==null){
+					GameFunction();
+				}
+				if(!instance3.playingGame){
+					instance3.StartGame();
+				}
+				
 			}
 		});
 		playButton.setBounds(392, 280, 64, 64);

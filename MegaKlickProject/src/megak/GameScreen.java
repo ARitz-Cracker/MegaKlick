@@ -1,3 +1,4 @@
+package megak;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GraphicsDevice;
@@ -20,17 +21,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import megak.VariableTimerTask;
 
 
 public class GameScreen extends JFrame {
 
-	private static void pause(int time){
-		try {
-		    Thread.sleep(time);                 //1000 milliseconds is one second.
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1233138023960243746L;
+	
 	
 	private JPanel contentPane;
 
@@ -64,10 +64,22 @@ public class GameScreen extends JFrame {
 
 	  }
 	
-	int[] marks = new int[4];
+	public Timer[] fnButtonTimer(int m){
+		Timer arrButtons[] = new Timer[m];
+		for (int i=0;i<m;i+=1){
+			arrButtons[i] = null;//new Timer();
+		}
+		return arrButtons;
+
+	  }
+	
+	
 	int clickedButtons = -1;
 	boolean playingGame = false;
 	JButton clickButton[] = fnButtonArray(20);
+	Timer clickButtonTimer[] = fnButtonTimer(20);
+	Timer timer = null;//new Timer();
+	long spawnTime = 5000;
 	public void AddButton(){
 		try {
 		int i = 0;
@@ -97,17 +109,30 @@ public class GameScreen extends JFrame {
 				if (clickButton[ii] != null){
 					clickButton[ii].setVisible(false);
 					clickButton[ii] = null;
+					clickButtonTimer[ii].cancel();
 					clickedButtons += 1;
-					if (clickedButtons > 32){
-						playingGame = false;
+					spawnTime = (long) (spawnTime * 0.99);
+					if (clickedButtons > 199){
+						EndGame();
 					}
+					System.out.println(clickedButtons+"/200");
 				}
 			}
 		});
 		clickButton[i].setBounds((int)(Math.random()*800),(int)(Math.random()*600), 64, 64);
 		contentPane.add(clickButton[i]);
-		
 		clickButton[i].setBorderPainted(false);
+		clickButtonTimer[i] = new Timer();
+		clickButtonTimer[i].schedule(new VariableTimerTask(Integer.toString(i)) {
+			  @Override
+			  public void run() {
+					int ii = Integer.parseInt(param);
+					if (clickButton[ii] != null){
+						clickButton[ii].setVisible(false);
+						clickButton[ii] = null;
+					}
+			  }
+			}, (long) (1000 + Math.random()*spawnTime*0.675));
 		}catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"Unable to load files: " + e.getMessage(),"IOException", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
@@ -116,13 +141,26 @@ public class GameScreen extends JFrame {
 		
 	}
 	public void EndGame(){
-		for (int i=0;i<1337;i+=1){
+		playingGame = false;
+		btnStartGeam = new JButton("Again?");
+		btnStartGeam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnStartGeam.setVisible(false);
+				btnStartGeam = null;
+				StartGame();
+			}
+		});
+		btnStartGeam.setBounds(312, 398, 240, 60);
+		contentPane.add(btnStartGeam);
+		timer.cancel();
+		for (int i=0;true;i+=1){ //INFINITE i++!!!
 			try{
 				if (clickButton[i] == null){
 					continue;
 				}else{
 					clickButton[i].setVisible(false);
 					clickButton[i] = null;
+					clickButtonTimer[i].cancel();
 				}
 			}catch (NullPointerException e) {
 				continue;
@@ -131,9 +169,11 @@ public class GameScreen extends JFrame {
 			}
 		}
 	}
-	Timer timer = new Timer();
+	
 	public void StartGame(){
+		playingGame = true;
 		System.out.println("Game interval!");
+		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			  @Override
 			  public void run() {
@@ -142,14 +182,14 @@ public class GameScreen extends JFrame {
 				  	StartGame();
 				  }
 			  }
-			}, (long) (Math.random()*5000));
+			}, (long) (Math.random()*spawnTime));
 	}
 	JButton btnStartGeam;
 	public GameScreen() {
 		setTitle("MegaKlick Game");
 		setForeground(Color.WHITE);
 		setBackground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		setBounds(gd.getDisplayMode().getWidth()/2 - 864/2, gd.getDisplayMode().getHeight()/2 - 664/2, 864, 664);
 		//setBounds(100, 100, 864, 664);

@@ -17,7 +17,14 @@ import javax.swing.border.EmptyBorder;
 public class HighscoresScreen extends JFrame {
 	private GameScreen gameScreen;
 	
-	
+	public void TakeScore(String player, int score){
+
+		JLabel lblTemplate = new JLabel("New label");
+		lblTemplate.setForeground(Color.WHITE);
+		lblTemplate.setBounds(212, 254, 46, 14);
+		contentPane.add(lblTemplate);
+		lblTemplate.setText(String.valueOf(gameScreen.clickedButtons));
+	}
 	
 	//int currentSessionScore = GameScreen.clickedButtons;
 
@@ -56,6 +63,7 @@ public class HighscoresScreen extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setForeground(Color.WHITE);
 		contentPane.setBackground(Color.BLACK);
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		setBounds(gd.getDisplayMode().getWidth()/2 - 864/2, gd.getDisplayMode().getHeight()/2 - 664/2, 864, 664);

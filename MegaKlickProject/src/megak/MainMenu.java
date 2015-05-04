@@ -61,6 +61,9 @@ public class MainMenu extends JFrame {
 		gameScreen = new GameScreen();
 		gameScreen.setVisible(false);
 		gameScreen.setResizable(false);
+		if (highscoresScreen != null){
+			gameScreen.setHighscoreScreen(highscoresScreen);
+		}
 	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -85,8 +88,8 @@ public class MainMenu extends JFrame {
 		setTitle("MegaKlick");
 		
 		createInstructionsScreen();
-		GameFunction();
 		HighscoresFunction();
+		GameFunction();
 		highscoresScreen.setGameScreen(gameScreen);
 		try {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -21,7 +21,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import megak.VariableTimerTask;
+import megak.HighscoresScreen;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -53,6 +55,11 @@ public class GameScreen extends JFrame {
 		});
 	}
 
+	
+	HighscoresScreen hsScreen;
+	public void setHighscoreScreen(HighscoresScreen scr){
+		hsScreen = scr;
+	}
 	/**
 	 * Create the frame.
 	 * @return 
@@ -84,12 +91,17 @@ public class GameScreen extends JFrame {
 	  }
 	
 	
+	
+	
 	int clickedButtons = -1; //first button doesn't count towards clickedButtons? - see highscore screen after playing
 	boolean playingGame = false;
 	JButton clickButton[] = fnButtonArray(20);
 	Timer clickButtonTimer[] = fnButtonTimer(20);
 	Timer timer = null;//new Timer();
 	long spawnTime = 5000;
+	
+	
+	
 	public void AddButton(){
 		try {
 		int i = 0;

@@ -18,12 +18,23 @@ public class HighscoresScreen extends JFrame {
 	private GameScreen gameScreen;
 	
 	public void TakeScore(String player, int score){
-
-		JLabel lblTemplate = new JLabel("New label");
-		lblTemplate.setForeground(Color.WHITE);
-		lblTemplate.setBounds(212, 254, 46, 14);
-		contentPane.add(lblTemplate);
-		lblTemplate.setText(String.valueOf(gameScreen.clickedButtons));
+		
+		JLabel name1 = new JLabel("");
+		name1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
+		name1.setForeground(Color.WHITE);
+		name1.setBounds(150, 269, 46, 14);
+		contentPane.add(name1);
+		
+		JLabel score1 = new JLabel("");
+		score1.setForeground(Color.WHITE);
+		score1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
+		score1.setBounds(506, 269, 46, 14);
+		contentPane.add(score1);
+		
+		String scoreGet = String.valueOf(score);
+		
+		name1.setText(player);
+		score1.setText(scoreGet);
 	}
 	
 	//int currentSessionScore = GameScreen.clickedButtons;
@@ -83,6 +94,22 @@ public class HighscoresScreen extends JFrame {
 		score.setForeground(Color.WHITE);
 		score.setBounds(102, 153, 643, 56);
 		contentPane.add(score);
+		
+		JLabel nameLabel = new JLabel("Name");
+		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nameLabel.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
+		nameLabel.setForeground(Color.WHITE);
+		nameLabel.setBounds(39, 220, 263, 38);
+		contentPane.add(nameLabel);
+		
+		JLabel lblScore = new JLabel("Score");
+		lblScore.setForeground(Color.WHITE);
+		lblScore.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
+		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
+		lblScore.setBounds(493, 232, 70, 14);
+		contentPane.add(lblScore);
+		
+		
 		this.addWindowListener(new WindowListener() {
 			
 			@Override

@@ -74,7 +74,7 @@ public class GameScreen extends JFrame {
 	}
 	
 	public boolean TouchingBox(int b1x1,int b1x2,int b1y1,int b1y2,int b2x1,int b2x2,int b2y1,int b2y2){
-		return (InBetween(b2x1,b1x1,b2x2) || InBetween(b2x1,b1x2,b2x2) || InBetween(b1x1,b2x1,b1x2)|| InBetween(b1x1,b2x2,b1x2) ) && (InBetween(b2y1,b1y1,b2y2) || InBetween(b2y1,b1y2,b2y2) || InBetween(b1y1,b2y1,b1y2) || InBetween(b1y1,b2y2,b1y2));
+		return (InBetween(b2x1,b1x1,b2x2) || InBetween(b2x1,b1x2,b2x2) ) && (InBetween(b2y1,b1y1,b2y2) || InBetween(b2y1,b1y2,b2y2));
 	}
 	
 	public JButton[] fnButtonArray(int m){
@@ -135,10 +135,11 @@ public class GameScreen extends JFrame {
 				return;
 			}
 		}
-		System.out.println(i);
+		//System.out.println(i);
 		BufferedImage buttonIcon;
 		buttonIcon = ImageIO.read(new File("C:/megaklick/whiteCircle.png"));
 		clickButton[i] = new JButton(new ImageIcon(buttonIcon));
+		
 		//clickButton[i].id = i;
 		clickButton[i].setActionCommand(Integer.toString(i));
 		clickButton[i].addActionListener(new ActionListener() {
@@ -156,23 +157,32 @@ public class GameScreen extends JFrame {
 			}
 		});
 		boolean touching = true;
-		int xpos;
-		int ypos;
+		int xpos = 0;
+		int ypos = 0;
+		int iix;
+		int iiy;
 		while (touching){
-			xpos = (int) (Math.random()*800);
-			ypos = (int) (Math.random()*600);
+			xpos = (int) (Math.random()*700)+50;
+			ypos = (int) (Math.random()*500)+50;
+			//xpos = i*10;
+			//ypos = i*10;
+			//System.out.println("Setting position of button "+i+" to ("+xpos+","+ypos+")");
 			touching = false;
-			clickButton[i].setBounds(xpos,ypos, 64, 64);
-			for (int ii=0;ii<clickButton.length;ii+=1){ //INFINITE i++!!!
-				if (clickButton[ii] == null || ii==i){continue;}
-				System.out.println("Checking box "+ii);
-				if (TouchingBox(xpos,xpos+64,ypos,ypos+64,clickButton[ii].getX(),clickButton[ii].getY(),clickButton[ii].getX()+64,clickButton[ii].getY()+64)){
-					System.out.println(i+" and "+ii+" are touching!");
-					touching = true;
-					break;
+			for (int ii=0;ii<clickButton.length;ii+=1){
+				if (clickButton[ii] != null && ii!=i){
+					//System.out.println("Checking box "+ii+" with "+i);
+					//System.out.println(""+ii+"'s pos is ("+clickButton[ii].getX()+","+clickButton[ii].getY()+")");
+					iix = clickButton[ii].getX();
+					iiy = clickButton[ii].getY();
+					if (TouchingBox(xpos,xpos+64,ypos,ypos+64,iix,iix+64,iiy,iiy+64)){
+						//System.out.println(i+" and "+ii+" are touching!");
+						touching = true;
+						ii = clickButton.length;
+					}
 				}
 			}
 		}
+		clickButton[i].setBounds(xpos,ypos, 64, 64);
 		contentPane.add(clickButton[i]);
 		clickButton[i].setBorderPainted(false);
 		clickButtonTimer[i] = new Timer();
@@ -252,7 +262,7 @@ public class GameScreen extends JFrame {
 	public void StartGame(){
 		this.setVisible(true);
 		playingGame = true;
-		System.out.println("Game interval!");
+		//System.out.println("Game interval!");
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			  @Override

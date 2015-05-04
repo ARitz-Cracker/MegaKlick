@@ -182,6 +182,7 @@ public class GameScreen extends JFrame {
 	
 	public void StartGame(){
 		this.setVisible(true);
+		clickedButtons = 0;
 		playingGame = true;
 		System.out.println("Game interval!");
 		timer = new Timer();
@@ -200,7 +201,9 @@ public class GameScreen extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				EndGame();
+				if (playingGame){
+					EndGame();
+				}
 			}
 		});
 		

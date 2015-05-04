@@ -155,7 +155,24 @@ public class GameScreen extends JFrame {
 				}
 			}
 		});
-		clickButton[i].setBounds((int)(Math.random()*800),(int)(Math.random()*600), 64, 64);
+		boolean touching = true;
+		int xpos;
+		int ypos;
+		while (touching){
+			xpos = (int) (Math.random()*800);
+			ypos = (int) (Math.random()*600);
+			touching = false;
+			clickButton[i].setBounds(xpos,ypos, 64, 64);
+			for (int ii=0;ii<clickButton.length;ii+=1){ //INFINITE i++!!!
+				if (clickButton[ii] == null || ii==i){continue;}
+				System.out.println("Checking box "+ii);
+				if (TouchingBox(xpos,xpos+64,ypos,ypos+64,clickButton[ii].getX(),clickButton[ii].getY(),clickButton[ii].getX()+64,clickButton[ii].getY()+64)){
+					System.out.println(i+" and "+ii+" are touching!");
+					touching = true;
+					break;
+				}
+			}
+		}
 		contentPane.add(clickButton[i]);
 		clickButton[i].setBorderPainted(false);
 		clickButtonTimer[i] = new Timer();

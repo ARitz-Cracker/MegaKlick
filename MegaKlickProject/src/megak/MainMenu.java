@@ -144,6 +144,7 @@ public class MainMenu extends JFrame {
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameScreen.setVisible(true);
+				gameScreen.StartGame();
 			}
 		});
 		playButton.setBounds(392, 280, 64, 64);
@@ -172,7 +173,7 @@ public class MainMenu extends JFrame {
 		highscoresButton = new JButton(new ImageIcon(buttonIcon3));
 		highscoresButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(gameScreen.clickedButtons!=-1){
+				if(gameScreen.clickedButtons!=0){
 					highscoresScreen.setVisible(true);
 				}
 				else{

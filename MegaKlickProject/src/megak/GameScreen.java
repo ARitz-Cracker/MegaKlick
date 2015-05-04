@@ -30,6 +30,7 @@ import megak.HighscoresScreen;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JProgressBar;
 
 
 public class GameScreen extends JFrame {
@@ -97,14 +98,27 @@ public class GameScreen extends JFrame {
 	
 	
 	
-	int clickedButtons = -1; //first button doesn't count towards clickedButtons? - see highscore screen after playing
+	int clickedButtons = 0; //first button doesn't count towards clickedButtons? - see highscore screen after playing
+	byte life = 50;
 	boolean playingGame = false;
 	JButton clickButton[] = fnButtonArray(20);
 	Timer clickButtonTimer[] = fnButtonTimer(20);
 	Timer timer = null;//new Timer();
 	long spawnTime = 5000;
+	JProgressBar healthBar;
 	
-	
+	public void AddLife(byte val){
+		life += val;
+		if (healthBar != null){
+			healthBar.setValue((int)life);
+		}
+		if (life>100){
+			life = 100;
+		}
+		if (life<= 0){
+			EndGame();
+		}
+	}
 	
 	public void AddButton(){
 		try {
@@ -135,11 +149,9 @@ public class GameScreen extends JFrame {
 					clickButton[ii] = null;
 					clickButtonTimer[ii].cancel();
 					clickedButtons += 1;
+					AddLife((byte)4);
 					spawnTime = (long) (spawnTime * 0.95);
-					if (clickedButtons > 4){
-						EndGame();
-					}
-					System.out.println(clickedButtons+"/5");
+					System.out.println("Score: "+clickedButtons);
 				}
 			}
 		});
@@ -154,6 +166,7 @@ public class GameScreen extends JFrame {
 					if (clickButton[ii] != null){
 						clickButton[ii].setVisible(false);
 						clickButton[ii] = null;
+						AddLife((byte)-3);
 					}
 			  }
 			}, (long) (1000 + Math.random()*spawnTime*0.675));
@@ -193,7 +206,7 @@ public class GameScreen extends JFrame {
 			}catch (ArrayIndexOutOfBoundsException e){
 				
 				if (hsScreen == null){
-					JOptionPane.showMessageDialog(null,"Unable to set High Score because the High Score screen doesn't exist.","Warning", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Unable to set High Score because the High Score screen doesn't exist. (Your score was "+clickedButtons+", btw)","Warning", JOptionPane.ERROR_MESSAGE);
 				}else{
 					boolean needinput = true;
 					String input;
@@ -210,6 +223,9 @@ public class GameScreen extends JFrame {
 						}
 					}
 				}
+				clickedButtons = 0;
+				life = 50;
+				healthBar.setValue(50);
 				break;
 			}
 		}
@@ -217,7 +233,6 @@ public class GameScreen extends JFrame {
 	
 	public void StartGame(){
 		this.setVisible(true);
-		clickedButtons = 0;
 		playingGame = true;
 		System.out.println("Game interval!");
 		timer = new Timer();
@@ -266,5 +281,11 @@ public class GameScreen extends JFrame {
 		});
 		btnStartGeam.setBounds(312, 398, 240, 60);
 		contentPane.add(btnStartGeam);
+		
+		healthBar = new JProgressBar();
+		healthBar.setBounds(15, 16, 321, 24);
+		contentPane.add(healthBar);
+		
+		healthBar.setValue(50);
 	}
 }

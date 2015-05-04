@@ -136,10 +136,10 @@ public class GameScreen extends JFrame {
 					clickButtonTimer[ii].cancel();
 					clickedButtons += 1;
 					spawnTime = (long) (spawnTime * 0.95);
-					if (clickedButtons > 199){
+					if (clickedButtons > 4){
 						EndGame();
 					}
-					System.out.println(clickedButtons+"/200");
+					System.out.println(clickedButtons+"/5");
 				}
 			}
 		});

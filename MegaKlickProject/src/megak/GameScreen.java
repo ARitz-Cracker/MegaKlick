@@ -18,12 +18,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import megak.VariableTimerTask;
 import megak.HighscoresScreen;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -187,6 +191,25 @@ public class GameScreen extends JFrame {
 					clickButtonTimer[i].cancel();
 				}
 			}catch (ArrayIndexOutOfBoundsException e){
+				
+				if (hsScreen == null){
+					JOptionPane.showMessageDialog(null,"Unable to set High Score because the High Score screen doesn't exist.","Warning", JOptionPane.ERROR_MESSAGE);
+				}else{
+					boolean needinput = true;
+					String input;
+					System.out.println("User must enter HS name");
+					while(needinput){
+						input = JOptionPane.showInputDialog("You got a high score! Enter your name so everyone can see good you are at clicking things!");
+						if (input == null){
+							needinput = false;
+						}else if (input.length()>0){
+							hsScreen.TakeScore(input,clickedButtons)
+						}else{
+							System.out.println("Invalid name. Retrying");
+							JOptionPane.showMessageDialog(null,"A blank name? Really?","Warning", JOptionPane.WARNING_MESSAGE);
+						}
+					}
+				}
 				break;
 			}
 		}

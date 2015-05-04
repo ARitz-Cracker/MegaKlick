@@ -84,7 +84,7 @@ public class GameScreen extends JFrame {
 	  }
 	
 	
-	int clickedButtons = -1;
+	int clickedButtons = -1; //first button doesn't count towards clickedButtons? - see highscore screen after playing
 	boolean playingGame = false;
 	JButton clickButton[] = fnButtonArray(20);
 	Timer clickButtonTimer[] = fnButtonTimer(20);

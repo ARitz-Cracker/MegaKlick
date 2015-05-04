@@ -234,6 +234,7 @@ public class GameScreen extends JFrame {
 							needinput = false;
 						}else if (input.length()>0){
 							hsScreen.TakeScore(input,clickedButtons);
+							needinput = false;
 						}else{
 							System.out.println("Invalid name. Retrying");
 							JOptionPane.showMessageDialog(null,"A blank name? Really?","Warning", JOptionPane.WARNING_MESSAGE);

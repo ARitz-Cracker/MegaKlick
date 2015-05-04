@@ -19,7 +19,7 @@ public class HighscoresScreen extends JFrame {
 	
 	public void TakeScore(String player, int score){
 		
-		JLabel name1 = new JLabel("");
+		JLabel name1 = new JLabel(""); //doesn't exist in design
 		name1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
 		name1.setForeground(Color.WHITE);
 		name1.setBounds(150, 269, 46, 14);

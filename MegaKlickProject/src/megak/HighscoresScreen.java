@@ -5,12 +5,22 @@ import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 public class HighscoresScreen extends JFrame {
@@ -38,6 +48,10 @@ public class HighscoresScreen extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	void setVisibleThisNot(){
+		this.setVisible(false);
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -104,6 +118,35 @@ public class HighscoresScreen extends JFrame {
 		score1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
 		score1.setBounds(610, 170, 500, 500);
 		contentPane.add(score1);
+		
+		JLabel backFromHighscore = new JLabel("Back");
+		backFromHighscore.setHorizontalAlignment(SwingConstants.CENTER);
+		backFromHighscore.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
+		backFromHighscore.setForeground(Color.WHITE);
+		backFromHighscore.setBounds(381, 543, 86, 14);
+		contentPane.add(backFromHighscore);
+		
+		JButton button = new JButton("");
+		button.setBorder(BorderFactory.createEmptyBorder());
+		button.setContentAreaFilled(false);
+		BufferedImage buttonIcon2;
+		try {
+			buttonIcon2 = ImageIO.read(new File("C:/megaklick/whiteTriangle.png"));
+			button = new JButton(new ImageIcon(buttonIcon2));
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setVisibleThisNot();
+				}
+			});
+			button.setForeground(new Color(0, 0, 0));
+			button.setBounds(392, 480, 64, 64);
+			contentPane.add(button);
+			button.setBorderPainted(false);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
 	
 	JTextArea name1 = null;

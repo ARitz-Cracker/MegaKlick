@@ -265,6 +265,7 @@ public class GameScreen extends JFrame {
 						}else if (input.length()>0){
 							hsScreen.TakeScore(input,clickedButtons);
 							needinput = false;
+							this.setVisible(false);
 						}else{
 							System.out.println("Invalid name. Retrying");
 							JOptionPane.showMessageDialog(null,"A blank name? Really?","Warning", JOptionPane.WARNING_MESSAGE);
@@ -292,6 +293,10 @@ public class GameScreen extends JFrame {
 	}
 	public void StartGame(){
 		try {
+			if (btnStartGeam != null){
+				btnStartGeam.setVisible(false);
+				btnStartGeam = null;
+			}
 			this.setVisible(true);
 			playingGame = true;
 			shapeGoal = shapeFiles[(int) (Math.random()*(shapeFiles.length-1))];
@@ -334,8 +339,6 @@ public class GameScreen extends JFrame {
 		btnStartGeam = new JButton("Ready?");
 		btnStartGeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnStartGeam.setVisible(false);
-				btnStartGeam = null;
 				StartGame();
 			}
 		});

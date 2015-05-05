@@ -17,6 +17,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
 
 
 public class InstructionsScreen extends JFrame {
@@ -67,31 +68,14 @@ public class InstructionsScreen extends JFrame {
 		lblInstructions.setBounds(286, 187, 276, 37);
 		contentPane.add(lblInstructions);
 		
-		JLabel lblClickStuff = new JLabel("As the shapes appear, click the correct shapes as fast ");
-		lblClickStuff.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-		lblClickStuff.setForeground(Color.WHITE);
-		lblClickStuff.setHorizontalAlignment(SwingConstants.CENTER);
-		lblClickStuff.setBounds(192, 244, 464, 30);
-		contentPane.add(lblClickStuff);
-		
-		JLabel lblAsPossibleThe = new JLabel("as possible. The faster you click the shapes, the more");
-		lblAsPossibleThe.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAsPossibleThe.setForeground(Color.WHITE);
-		lblAsPossibleThe.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-		lblAsPossibleThe.setBounds(192, 268, 464, 30);
-		contentPane.add(lblAsPossibleThe);
-		
-		JLabel lblPointsYouGet = new JLabel(" points you get. If the shapes are not clicked within");
-		lblPointsYouGet.setForeground(Color.WHITE);
-		lblPointsYouGet.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-		lblPointsYouGet.setBounds(202, 302, 454, 14);
-		contentPane.add(lblPointsYouGet);
-		
-		JLabel lblACertainTime = new JLabel(" a certain time, they will disappear. ");
-		lblACertainTime.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-		lblACertainTime.setHorizontalAlignment(SwingConstants.CENTER);
-		lblACertainTime.setForeground(Color.WHITE);
-		lblACertainTime.setBounds(192, 327, 444, 14);
-		contentPane.add(lblACertainTime);
+		JTextArea instruction = new JTextArea();
+		instruction.setFont(new Font("Trajan Pro", Font.PLAIN, 16));
+		instruction.setEditable(false);
+		instruction.setForeground(Color.WHITE);
+		instruction.setBackground(Color.BLACK);
+		instruction.setAlignmentY(CENTER_ALIGNMENT);
+		instruction.setText("The goal of MegaKlick is to survive as long as possible by \nclicking the correct shapes. The correct shape will be \ndesignated by the 'goal' indicator in the top right-hand \ncorner. The game ends when you run out of life points.\n\nClicking a correct shape: +4 life points\nClicking an incorrect shape: -3 life points\nMissing a correct shape: -3 life points");
+		instruction.setBounds(180, 260, 558, 251);
+		contentPane.add(instruction);
 	}
 }

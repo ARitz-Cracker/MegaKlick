@@ -4,37 +4,23 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 
 public class HighscoresScreen extends JFrame {
 	private GameScreen gameScreen;
-	
 	public void TakeScore(String player, int score){
 		
-		JLabel name1 = new JLabel("");
-		name1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-		name1.setForeground(Color.WHITE);
-		name1.setBounds(150, 269, 46, 14);
-		contentPane.add(name1);
+		//String scoreGet = String.valueOf(gameScreen.clickedButtons);
 		
-		JLabel score1 = new JLabel("");
-		score1.setForeground(Color.WHITE);
-		score1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-		score1.setBounds(506, 269, 46, 14);
-		contentPane.add(score1);
-		
-		String scoreGet = String.valueOf(score);
-		
-		name1.setText(player);
-		score1.setText(scoreGet);
+		name1.setText(name1.getText()+"\n\n" + player);
+		score1.setText(score1.getText()+"\n\n"+ score);
 	}
 	
 	//int currentSessionScore = GameScreen.clickedButtons;
@@ -82,78 +68,45 @@ public class HighscoresScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel highscoresTitle = new JLabel("Statistics");
+		JLabel highscoresTitle = new JLabel("Highscores");
 		highscoresTitle.setFont(new Font("Trajan Pro", Font.PLAIN, 60));
 		highscoresTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		highscoresTitle.setForeground(Color.WHITE);
-		highscoresTitle.setBounds(237, 45, 374, 50);
+		highscoresTitle.setBounds(221, 45, 406, 60);
 		contentPane.add(highscoresTitle);
 		
-		JLabel score = new JLabel("Buttons clicked this session: ");
-		score.setFont(new Font("Trajan Pro", Font.PLAIN, 30));
-		score.setForeground(Color.WHITE);
-		score.setBounds(102, 153, 643, 56);
-		contentPane.add(score);
-		
 		JLabel nameLabel = new JLabel("Name");
-		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		nameLabel.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
+		nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		nameLabel.setFont(new Font("Trajan Pro", Font.PLAIN, 20));
 		nameLabel.setForeground(Color.WHITE);
-		nameLabel.setBounds(39, 220, 263, 38);
+		nameLabel.setBounds(121, 150, 125, 38);
 		contentPane.add(nameLabel);
 		
 		JLabel lblScore = new JLabel("Score");
 		lblScore.setForeground(Color.WHITE);
-		lblScore.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
-		lblScore.setBounds(493, 232, 70, 14);
+		lblScore.setFont(new Font("Trajan Pro", Font.PLAIN, 20));
+		lblScore.setHorizontalAlignment(SwingConstants.LEFT);
+		lblScore.setBounds(610, 150, 94, 26);
 		contentPane.add(lblScore);
 		
+		name1 = new JTextArea();
+		name1.setEditable(false);
+		name1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
+		name1.setForeground(Color.WHITE);
+		name1.setBackground(Color.BLACK);
+		name1.setBounds(121, 170, 200, 500);
+		contentPane.add(name1);
 		
-		this.addWindowListener(new WindowListener() {
-			
-			@Override
-			public void windowOpened(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				score.setText("Buttons clicked this session: " + gameScreen.clickedButtons);
-			}
-			
-			@Override
-			public void windowIconified(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void windowDeiconified(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void windowDeactivated(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void windowClosing(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void windowClosed(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void windowActivated(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
+		score1 = new JTextArea();
+		score1.setEditable(false);
+		score1.setForeground(Color.WHITE);
+		score1.setBackground(Color.BLACK);
+		score1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
+		score1.setBounds(610, 170, 500, 500);
+		contentPane.add(score1);
 	}
+	
+	JTextArea name1 = null;
+	
+	JTextArea score1 = null;
 }

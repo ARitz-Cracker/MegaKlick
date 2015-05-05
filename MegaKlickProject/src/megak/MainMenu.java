@@ -106,7 +106,7 @@ public class MainMenu extends JFrame {
 		lblInstructions.setFont(new Font("Trajan Pro", Font.PLAIN, 12));
 		lblInstructions.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInstructions.setForeground(Color.WHITE);
-		lblInstructions.setBounds(169, 344, 109, 14);
+		lblInstructions.setBounds(169, 500, 109, 14);
 		contentPane.add(lblInstructions);
 		
 		/*JButton instructionsButton = new JButton();
@@ -123,17 +123,10 @@ public class MainMenu extends JFrame {
 				instance1.setVisible(true);*/
 			}
 		});
-		instructionsButton.setBounds(190, 280, 64, 64);
+		instructionsButton.setBounds(190, 430, 64, 64);
 		contentPane.add(instructionsButton);
 		
 		instructionsButton.setBorderPainted(false);
-		
-		JLabel lblTitle = new JLabel("MegaKlick Logo?");
-		lblTitle.setFont(new Font("Trajan Pro", Font.PLAIN, 36));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setForeground(Color.WHITE);
-		lblTitle.setBounds(247, 136, 354, 37);
-		contentPane.add(lblTitle);
 		
 		JButton playButton = new JButton();
 		playButton.setBorder(BorderFactory.createEmptyBorder());
@@ -144,9 +137,10 @@ public class MainMenu extends JFrame {
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameScreen.setVisible(true);
+				gameScreen.StartGame();
 			}
 		});
-		playButton.setBounds(392, 280, 64, 64);
+		playButton.setBounds(392, 430, 64, 64);
 		contentPane.add(playButton);
 		playButton.setBorderPainted(false);
 		
@@ -154,7 +148,7 @@ public class MainMenu extends JFrame {
 		lblPlay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPlay.setFont(new Font("Trajan Pro", Font.PLAIN, 12));
 		lblPlay.setForeground(Color.WHITE);
-		lblPlay.setBounds(392, 345, 64, 13);
+		lblPlay.setBounds(392, 500, 64, 13);
 		contentPane.add(lblPlay);
 		
 		JLabel noStats = new JLabel("");
@@ -172,25 +166,37 @@ public class MainMenu extends JFrame {
 		highscoresButton = new JButton(new ImageIcon(buttonIcon3));
 		highscoresButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(gameScreen.clickedButtons!=-1){
 					highscoresScreen.setVisible(true);
 				}
-				else{
-					noStats.setText("No stats to show.");
-				}
-				
-			}
 		});
-		highscoresButton.setBounds(600, 280, 64, 64);
+		highscoresButton.setBounds(600, 430, 64, 64);
 		contentPane.add(highscoresButton);
 		highscoresButton.setBorderPainted(false);
 		
-		JLabel lblHighscores = new JLabel("Stats");
+		JLabel lblHighscores = new JLabel("Highscores");
 		lblHighscores.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHighscores.setFont(new Font("Trajan Pro", Font.PLAIN, 12));
 		lblHighscores.setForeground(Color.WHITE);
-		lblHighscores.setBounds(582, 344, 104, 14);
+		lblHighscores.setBounds(582, 500, 104, 14);
 		contentPane.add(lblHighscores);
+		
+		JButton logoMain = new JButton("");
+		logoMain.setBorder(BorderFactory.createEmptyBorder());
+		logoMain.setContentAreaFilled(false);
+		BufferedImage buttonIconLogo;
+		buttonIconLogo = ImageIO.read(new File("C:/megaklick/logo.png"));
+		logoMain = new JButton(new ImageIcon(buttonIconLogo));
+		logoMain.setBounds(345, 201, 158, 151);
+		contentPane.add(logoMain);
+		logoMain.setBorderPainted(false);
+		
+		JLabel lblMegaklick = new JLabel("MegaKlick");
+		lblMegaklick.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMegaklick.setForeground(Color.WHITE);
+		lblMegaklick.setFont(new Font("Trajan Pro", Font.PLAIN, 50));
+		lblMegaklick.setBounds(220, 78, 408, 51);
+		contentPane.add(lblMegaklick);
+		
 		
 		//helloButton.HorizontalAlignment(SwingConstants.CENTER);
 		//circleLabel.setRolloverEnabled(false);

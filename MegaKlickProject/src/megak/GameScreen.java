@@ -158,6 +158,9 @@ public class GameScreen extends JFrame {
 					clickButton[ii].setVisible(false);
 					if (clickButton[ii].IsCorrect()){
 						clickedButtons += 1;
+						if (life == 100){
+							clickedButtons += 1;
+						}
 						scoreText.setText("Score: "+clickedButtons);
 						AddLife((byte)4);
 					}else{
@@ -168,7 +171,7 @@ public class GameScreen extends JFrame {
 					
 					clickButton[ii] = null;
 					spawnTime = (long) (spawnTime * 0.95);
-					System.out.println("Score: "+clickedButtons);
+					//System.out.println("Score: "+clickedButtons);
 				}
 			}
 		});
@@ -209,7 +212,7 @@ public class GameScreen extends JFrame {
 					int ii = Integer.parseInt(param);
 					if (clickButton[ii] != null){
 						clickButton[ii].setVisible(false);
-						if (clickButton[ii].IsCorrect()){AddLife((byte)-3);}
+						if (clickButton[ii].IsCorrect()){AddLife((byte)-7);}
 						clickButton[ii] = null;
 					}
 			  }
@@ -296,7 +299,7 @@ public class GameScreen extends JFrame {
 			buttonIcon2 = ImageIO.read(new File("C:/megaklick/"+shapeGoal));
 			playButton.setIcon(new ImageIcon(buttonIcon2));
 			scoreText.setText("Score: 0");
-			spawnTime = 3000;
+			spawnTime = 2000;
 			GameTick();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"Unable to load files: " + e.getMessage(),"IOException", JOptionPane.ERROR_MESSAGE);

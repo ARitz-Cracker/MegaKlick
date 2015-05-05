@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 //import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.management.RuntimeMXBean;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -170,7 +171,12 @@ public class GameScreen extends JFrame {
 					}
 					
 					clickButton[ii] = null;
-					spawnTime = (long) (spawnTime * 0.95);
+					
+					if (Math.random() > spawnTime/800){
+						spawnTime = (long) (spawnTime * 1.2);
+					}else{
+						spawnTime = (long) (spawnTime * 0.95);
+					}
 					//System.out.println("Score: "+clickedButtons);
 				}
 			}
@@ -262,6 +268,7 @@ public class GameScreen extends JFrame {
 						input = JOptionPane.showInputDialog("You got a high score! Enter your name so everyone can see good you are at clicking things!");
 						if (input == null){
 							needinput = false;
+							this.setVisible(false);
 						}else if (input.length()>0){
 							hsScreen.TakeScore(input,clickedButtons);
 							needinput = false;
@@ -291,6 +298,7 @@ public class GameScreen extends JFrame {
 			  }
 			}, (long) (Math.random()*spawnTime));
 	}
+	JLabel countdownText;
 	public void StartGame(){
 		try {
 			if (btnStartGeam != null){
@@ -305,12 +313,45 @@ public class GameScreen extends JFrame {
 			playButton.setIcon(new ImageIcon(buttonIcon2));
 			scoreText.setText("Score: 0");
 			spawnTime = 2000;
-			GameTick();
+			timer = new Timer();
+			timer.schedule(new TimerTask() {
+				  @Override
+				  public void run() {
+					  countdownText.setText("3");
+				  }
+				}, (long) (1000));
+			timer.schedule(new TimerTask() {
+				  @Override
+				  public void run() {
+					  countdownText.setText("2");
+				  }
+				}, (long) (2000));
+			timer.schedule(new TimerTask() {
+				  @Override
+				  public void run() {
+					  countdownText.setText("1");
+				  }
+				}, (long) (3000));
+			timer.schedule(new TimerTask() {
+				  @Override
+				  public void run() {
+					  countdownText.setText("GO!");
+					  GameTick();
+				  }
+				}, (long) (4000));
+			timer.schedule(new TimerTask() {
+				  @Override
+				  public void run() {
+					  countdownText.setVisible(false);
+				  }
+				}, (long) (4500));
+			//GameTick();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"Unable to load files: " + e.getMessage(),"IOException", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 	}
+	
 	JButton btnStartGeam;
 	public GameScreen() {
 		addWindowListener(new WindowAdapter() {
@@ -375,6 +416,13 @@ public class GameScreen extends JFrame {
 		GoalText.setFont(new Font("Trajan Pro", Font.PLAIN, 22));
 		GoalText.setBounds(670, 16, 94, 24);
 		contentPane.add(GoalText);
+		
+		countdownText = new JLabel("Loading...");
+		countdownText.setHorizontalAlignment(SwingConstants.CENTER);
+		countdownText.setForeground(Color.WHITE);
+		countdownText.setFont(new Font("Trajan Pro", Font.PLAIN, 50));
+		countdownText.setBounds(15, 171, 812, 76);
+		contentPane.add(countdownText);
 		
 		}
 		catch (IOException e) {

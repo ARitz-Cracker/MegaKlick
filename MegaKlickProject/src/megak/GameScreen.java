@@ -100,7 +100,7 @@ public class GameScreen extends JFrame {
 
 	  }
 	
-	String shapeFiles[] = {"whiteCircle.png","whiteDiamond.png","whiteHexagon.png","whitePentagon.png","whiteSquare.png","whiteTriangle.png"};
+	String shapeFiles[] = {"whiteOctogon.png","whiteCircle.png","whiteDiamond.png","whiteHexagon.png","whitePentagon.png","whiteSquare.png","whiteTriangle.png"};
 	String shapeGoal = "whiteCircle.png";
 	int clickedButtons = 0; //first button doesn't count towards clickedButtons? - see highscore screen after playing
 	byte life = 50;
@@ -174,7 +174,7 @@ public class GameScreen extends JFrame {
 					clickButton[ii] = null;
 					
 					
-					if (Math.random() > spawnTime/((Math.sin((double)System.currentTimeMillis()/(30000*((System.currentTimeMillis() - startTime)/100000)))*550)+800)){
+					if (Math.random() > spawnTime/((Math.sin((double)System.currentTimeMillis()/(30000*((System.currentTimeMillis() - startTime)/100000)))*620)+800)){
 						spawnTime = (long) (spawnTime * 1.2);
 						System.out.println("Slower");
 					}else{

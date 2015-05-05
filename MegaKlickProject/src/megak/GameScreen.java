@@ -1,16 +1,20 @@
 package megak;
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Color;
@@ -18,10 +22,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,6 +32,7 @@ import megak.HighscoresScreen;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JProgressBar;
 
 
@@ -77,8 +80,8 @@ public class GameScreen extends JFrame {
 		return (InBetween(b2x1,b1x1,b2x2) || InBetween(b2x1,b1x2,b2x2) ) && (InBetween(b2y1,b1y1,b2y2) || InBetween(b2y1,b1y2,b2y2));
 	}
 	
-	public JButton[] fnButtonArray(int m){
-		JButton arrButtons[] = new JButton[m];
+	public GameShape[] fnButtonArray(int m){
+		GameShape arrButtons[] = new GameShape[m];
 		for (int i=0;i<m;i+=1){
 			arrButtons[i] = null;
 		}
@@ -95,17 +98,18 @@ public class GameScreen extends JFrame {
 
 	  }
 	
-	
-	
-	
+	String shapeFiles[] = {"whiteCircle.png","whiteDiamond.png","whiteHexagon.png","whitePentagon.png","whiteSquare.png","whiteTriangle.png"};
+	String shapeGoal = "whiteCircle.png";
 	int clickedButtons = 0; //first button doesn't count towards clickedButtons? - see highscore screen after playing
 	byte life = 50;
 	boolean playingGame = false;
-	JButton clickButton[] = fnButtonArray(20);
+	GameShape clickButton[] = fnButtonArray(20);
 	Timer clickButtonTimer[] = fnButtonTimer(20);
 	Timer timer = null;//new Timer();
 	long spawnTime = 5000;
 	JProgressBar healthBar;
+	JLabel scoreText;
+	JButton playButton;
 	
 	public void AddLife(byte val){
 		life += val;
@@ -137,20 +141,32 @@ public class GameScreen extends JFrame {
 		}
 		//System.out.println(i);
 		BufferedImage buttonIcon;
-		buttonIcon = ImageIO.read(new File("C:/megaklick/whiteCircle.png"));
-		clickButton[i] = new JButton(new ImageIcon(buttonIcon));
 		
-		//clickButton[i].id = i;
+		
+		String shapeFileName = shapeFiles[(int) (Math.random()*(shapeFiles.length-1))];
+		buttonIcon = ImageIO.read(new File("C:/megaklick/"+shapeFileName));
+		clickButton[i] = new GameShape();
+		clickButton[i].setIcon(new ImageIcon(buttonIcon));
+		clickButton[i].SetID(i);
+		clickButton[i].SetCorrect(shapeFileName.equals(shapeGoal));
 		clickButton[i].setActionCommand(Integer.toString(i));
 		clickButton[i].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int ii = Integer.parseInt(arg0.getActionCommand());
 				if (clickButton[ii] != null){
-					clickButton[ii].setVisible(false);
-					clickButton[ii] = null;
 					clickButtonTimer[ii].cancel();
-					clickedButtons += 1;
-					AddLife((byte)4);
+					clickButton[ii].setVisible(false);
+					if (clickButton[ii].IsCorrect()){
+						clickedButtons += 1;
+						scoreText.setText("Score: "+clickedButtons);
+						AddLife((byte)4);
+					}else{
+						clickedButtons -= 1;
+						scoreText.setText("Score: "+clickedButtons);
+						AddLife((byte)-5);
+					}
+					
+					clickButton[ii] = null;
 					spawnTime = (long) (spawnTime * 0.95);
 					System.out.println("Score: "+clickedButtons);
 				}
@@ -186,14 +202,15 @@ public class GameScreen extends JFrame {
 		contentPane.add(clickButton[i]);
 		clickButton[i].setBorderPainted(false);
 		clickButtonTimer[i] = new Timer();
+		
 		clickButtonTimer[i].schedule(new VariableTimerTask(Integer.toString(i)) {
 			  @Override
 			  public void run() {
 					int ii = Integer.parseInt(param);
 					if (clickButton[ii] != null){
 						clickButton[ii].setVisible(false);
+						if (clickButton[ii].IsCorrect()){AddLife((byte)-3);}
 						clickButton[ii] = null;
-						AddLife((byte)-3);
 					}
 			  }
 			}, (long) (1000 + Math.random()*spawnTime*0.675));
@@ -258,21 +275,33 @@ public class GameScreen extends JFrame {
 			}
 		}
 	}
-	
-	public void StartGame(){
-		this.setVisible(true);
-		playingGame = true;
-		//System.out.println("Game interval!");
+	void GameTick(){
+		AddButton();
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			  @Override
 			  public void run() {
 				  if (playingGame){
-					AddButton();
-				  	StartGame();
+					GameTick();
 				  }
 			  }
 			}, (long) (Math.random()*spawnTime));
+	}
+	public void StartGame(){
+		try {
+			this.setVisible(true);
+			playingGame = true;
+			shapeGoal = shapeFiles[(int) (Math.random()*(shapeFiles.length-1))];
+			BufferedImage buttonIcon2;
+			buttonIcon2 = ImageIO.read(new File("C:/megaklick/"+shapeGoal));
+			playButton.setIcon(new ImageIcon(buttonIcon2));
+			scoreText.setText("Score: 0");
+			spawnTime = 3000;
+			GameTick();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null,"Unable to load files: " + e.getMessage(),"IOException", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
 	}
 	JButton btnStartGeam;
 	public GameScreen() {
@@ -284,7 +313,7 @@ public class GameScreen extends JFrame {
 				}
 			}
 		});
-		
+		try{
 		setTitle("MegaKlick Game");
 		setForeground(Color.WHITE);
 		setBackground(Color.BLACK);
@@ -315,5 +344,38 @@ public class GameScreen extends JFrame {
 		contentPane.add(healthBar);
 		
 		healthBar.setValue(50);
+		
+
+		playButton = new JButton();
+		playButton.setBorder(BorderFactory.createEmptyBorder());
+		playButton.setContentAreaFilled(false);
+		BufferedImage buttonIcon2;
+		buttonIcon2 = ImageIO.read(new File("C:/megaklick/whiteTriangle.png"));
+		playButton = new JButton(new ImageIcon(buttonIcon2));
+		playButton.setBounds(774, 11, 64, 64);
+		contentPane.add(playButton);
+		playButton.setBorderPainted(false);
+		
+		scoreText = new JLabel("Score: 00");
+		scoreText.setFont(new Font("Trajan Pro", Font.PLAIN, 22));
+		scoreText.setHorizontalAlignment(SwingConstants.LEFT);
+		scoreText.setForeground(Color.WHITE);
+		scoreText.setBounds(15, 51, 354, 24);
+		contentPane.add(scoreText);
+		
+		JLabel GoalText = new JLabel("Goal:");
+		GoalText.setHorizontalAlignment(SwingConstants.RIGHT);
+		GoalText.setForeground(Color.WHITE);
+		GoalText.setFont(new Font("Trajan Pro", Font.PLAIN, 22));
+		GoalText.setBounds(670, 16, 94, 24);
+		contentPane.add(GoalText);
+		
+		}
+		catch (IOException e) {
+			JOptionPane.showMessageDialog(null,"Unable to load files: " + e.getMessage(),"IOException", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+			//e.printStackTrace();
+		}
+		
 	}
 }

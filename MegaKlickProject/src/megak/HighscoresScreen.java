@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+//import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
@@ -20,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+//import java.io.FileWriter;
 import java.io.IOException;
 
 
@@ -123,7 +125,7 @@ public class HighscoresScreen extends JFrame {
 		backFromHighscore.setHorizontalAlignment(SwingConstants.CENTER);
 		backFromHighscore.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
 		backFromHighscore.setForeground(Color.WHITE);
-		backFromHighscore.setBounds(381, 543, 86, 14);
+		backFromHighscore.setBounds(381, 500, 86, 14);
 		contentPane.add(backFromHighscore);
 		
 		JButton button = new JButton("");
@@ -139,7 +141,7 @@ public class HighscoresScreen extends JFrame {
 				}
 			});
 			button.setForeground(new Color(0, 0, 0));
-			button.setBounds(392, 480, 64, 64);
+			button.setBounds(392, 430, 64, 64);
 			contentPane.add(button);
 			button.setBorderPainted(false);
 		} catch (IOException e1) {

@@ -105,7 +105,7 @@ public class InstructionsScreen extends JFrame {
 			});
 			btnBack.setForeground(Color.WHITE);
 			btnBack.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-			btnBack.setBounds(392, 480, 64, 64);
+			btnBack.setBounds(392, 430, 64, 64);
 			contentPane.add(btnBack);
 			btnBack.setBorderPainted(false);
 		} catch (IOException e) {
@@ -118,7 +118,7 @@ public class InstructionsScreen extends JFrame {
 		lblBack.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
 		lblBack.setForeground(Color.WHITE);
 		lblBack.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBack.setBounds(401, 543, 46, 14);
+		lblBack.setBounds(401, 500, 46, 14);
 		contentPane.add(lblBack);
 	}
 }

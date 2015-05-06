@@ -25,6 +25,7 @@ import java.io.File;
 //import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.management.RuntimeMXBean;
+import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -99,7 +100,7 @@ public class GameScreen extends JFrame {
 
 	  }
 	
-	String shapeFiles[] = {"whiteCircle.png","whiteDiamond.png","whiteHexagon.png","whitePentagon.png","whiteSquare.png","whiteTriangle.png"};
+	String shapeFiles[] = {"whiteOctogon.png","whiteCircle.png","whiteDiamond.png","whiteHexagon.png","whitePentagon.png","whiteSquare.png","whiteTriangle.png"};
 	String shapeGoal = "whiteCircle.png";
 	int clickedButtons = 0; //first button doesn't count towards clickedButtons? - see highscore screen after playing
 	byte life = 50;
@@ -111,7 +112,7 @@ public class GameScreen extends JFrame {
 	JProgressBar healthBar;
 	JLabel scoreText;
 	JButton playButton;
-	
+	double startTime = System.currentTimeMillis();
 	public void AddLife(byte val){
 		life += val;
 		if (healthBar != null){
@@ -172,10 +173,13 @@ public class GameScreen extends JFrame {
 					
 					clickButton[ii] = null;
 					
-					if (Math.random() > spawnTime/800){
+					
+					if (Math.random() > spawnTime/((Math.sin((double)System.currentTimeMillis()/(30000*((System.currentTimeMillis() - startTime)/100000)))*620)+800)){
 						spawnTime = (long) (spawnTime * 1.2);
+						System.out.println("Slower");
 					}else{
-						spawnTime = (long) (spawnTime * 0.95);
+						spawnTime = (long) (spawnTime * 0.92);
+						System.out.println("Faster");
 					}
 					//System.out.println("Score: "+clickedButtons);
 				}
@@ -223,6 +227,8 @@ public class GameScreen extends JFrame {
 					}
 			  }
 			}, (long) (1000 + Math.random()*spawnTime*0.675));
+		
+		
 		}catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"Unable to load files: " + e.getMessage(),"IOException", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
@@ -300,6 +306,14 @@ public class GameScreen extends JFrame {
 	}
 	JLabel countdownText;
 	public void StartGame(){
+		/*
+		while (true){
+			//
+			//System.out.println((double)System.currentTimeMillis()/1000);
+			System.out.println(Math.sin((double)System.currentTimeMillis()/30000));
+			
+			if (false){break;}
+		}*/
 		try {
 			if (btnStartGeam != null){
 				btnStartGeam.setVisible(false);
@@ -318,6 +332,7 @@ public class GameScreen extends JFrame {
 				  @Override
 				  public void run() {
 					  countdownText.setText("3");
+					  countdownText.setVisible(true);
 				  }
 				}, (long) (1000));
 			timer.schedule(new TimerTask() {
@@ -336,6 +351,7 @@ public class GameScreen extends JFrame {
 				  @Override
 				  public void run() {
 					  countdownText.setText("GO!");
+					  startTime = System.currentTimeMillis() - 100000;
 					  GameTick();
 				  }
 				}, (long) (4000));

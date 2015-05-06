@@ -1,4 +1,5 @@
 package megak;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -31,79 +32,91 @@ import java.io.PrintWriter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
 public class HighscoresScreen extends JFrame {
 	private GameScreen gameScreen;
-	
-	String names[] = {"Nobody"};
-	int scores[] = {0};
-	void SortScores(){
-		String newNames[] = {}; 
-		int newScores[] = {};
+
+	String names[] = { "NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL" };
+	int scores[] = { Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE };
+
+	void SortScores() {
+		String newNames[] = { "NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL" };
+		int newScores[] = { Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE };
 		int maxScore = 0;
-		int len = scores.length;
-		
-		while (newScores.length < len){
-			for (int i=0;i<len;i+=1){
-				if (scores[i] >= scores[maxScore]){
-					newScores[newScores.length] = scores[i];
-					newNames[newNames.length] = names[i];
-					scores[i] = -2147483647;
-					names[i] = "NULL";
+		int newPlace = 0;
+		while (newPlace < 10) {
+			for (int i = 0; i < 10; i += 1) {
+				if (scores[i] >= scores[maxScore]) {
+					maxScore = i;
 				}
 			}
+			newScores[newPlace] = scores[maxScore];
+			newNames[newPlace] = names[maxScore];
+			newPlace +=1;
+			scores[maxScore] = -2147483647;
+			names[maxScore] = "NULL";
 		}
-		scores = newScores;
-		names = newNames;
+		for (int i=0;i<10;i+=1){
+			scores[i] = newScores[i];
+			names[i] = newNames[i];
+			
+		}
 	}
-	
-	 public static String readFile(String filename)
-	 {
-	    String content = null;
-	    File file = new File(filename); //for ex foo.txt
-	    try {
-	        FileReader reader = new FileReader(file);
-	        char[] chars = new char[(int) file.length()];
-	        reader.read(chars);
-	        content = new String(chars);
-	        reader.close();
-	    } catch (IOException e) {
-	        //e.printStackTrace();
-	        JOptionPane.showMessageDialog(null,e.getMessage(),"IOException", JOptionPane.ERROR_MESSAGE);
-	    }
-	    return content;
-	 }
-	
-	public void TakeScore(String player, int score){
-		if (scores.length != names.length){
-			System.err.println("scores.length != names.length... wtf?");
-			JOptionPane.showMessageDialog(null,"The names array's length is not equal to that of the scores array.\n(There are names without scores, or scores without names)","Something strange happened.", JOptionPane.ERROR_MESSAGE);
-			System.exit(1);
+
+	public static String readFile(String filename) {
+		String content = null;
+		File file = new File(filename); // for ex foo.txt
+		try {
+			FileReader reader = new FileReader(file);
+			char[] chars = new char[(int) file.length()];
+			reader.read(chars);
+			content = new String(chars);
+			reader.close();
+		} catch (IOException e) {
+			// e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "You appear not to have any High Scores\n"+e.getMessage(), "IOException",
+					JOptionPane.INFORMATION_MESSAGE);
 		}
-		scores[scores.length] = score;
-		names[names.length] = player;
-		
-		
-		try{
-			String playerName = player;
-			int playerScore = score;
-			FileWriter fileWrite = new FileWriter("nameAndScore.txt", true);
-			PrintWriter print = new PrintWriter(fileWrite);
-			print.print(playerName+"\t"+playerScore+"\r\n");
+		return content;
+	}
+
+	void UpdateScores(){
+		SortScores();
+		name1.setText("");
+		score1.setText("");
+		try {
+			PrintWriter print = new PrintWriter(new FileWriter("nameAndScore.txt", false));
+			for (int i=0;i<10;i+=1){
+				print.print(names[i] + "\t" + scores[i] + "\r\n");
+				if (scores[i] > -2147483647){
+					name1.setText(name1.getText()+"\n\n" + names[i]);
+					score1.setText(score1.getText()+"\n\n"+ scores[i]);
+				}
+			}
 			print.close();
-			String readScores = readFile("nameAndScore.txt");
-				}
-				catch(IOException e1){
-					e1.printStackTrace();
-				}
-		
-		/*
-		//name1.setText(name1.getText()+"\n\n" + player);
-		//score1.setText(score1.getText()+"\n\n"+ score);
-		*/
+			//String readScores = readFile("nameAndScore.txt");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
 	}
 	
-	//int currentSessionScore = GameScreen.clickedButtons;
+	public void TakeScore(String player, int score) {
+		int minScore = 0;
+		for (int i=0;i<10;i+=1){
+			if (scores[i] < scores[minScore]){
+				minScore = i;
+			}
+		}
+		scores[minScore] = score;
+		names[minScore] = player;
+		UpdateScores();
+		/*
+		 * //name1.setText(name1.getText()+"\n\n" + player);
+		 * //score1.setText(score1.getText()+"\n\n"+ score);
+		 */
+	}
+
+	// int currentSessionScore = GameScreen.clickedButtons;
 
 	public void setGameScreen(GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
@@ -118,10 +131,10 @@ public class HighscoresScreen extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	void setVisibleThisNot(){
+	void setVisibleThisNot() {
 		this.setVisible(false);
 	}
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -143,10 +156,9 @@ public class HighscoresScreen extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				String names = readFile("nameAndScore.txt");
 				
-				name1.setText(readFile("nameAndScore.txt"));
-				score1.setText(readFile("nameAndScore.txt"));
+				//name1.setText(readFile("nameAndScore.txt"));
+				//score1.setText(readFile("nameAndScore.txt"));
 			}
 		});
 		setTitle("MegaKlick - Highscores");
@@ -155,33 +167,35 @@ public class HighscoresScreen extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
 		contentPane.setBackground(Color.BLACK);
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		setBounds(gd.getDisplayMode().getWidth()/2 - 864/2, gd.getDisplayMode().getHeight()/2 - 664/2, 864, 664);
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice();
+		setBounds(gd.getDisplayMode().getWidth() / 2 - 864 / 2, gd
+				.getDisplayMode().getHeight() / 2 - 664 / 2, 864, 664);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel highscoresTitle = new JLabel("Highscores");
 		highscoresTitle.setFont(new Font("Trajan Pro", Font.PLAIN, 60));
 		highscoresTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		highscoresTitle.setForeground(Color.WHITE);
 		highscoresTitle.setBounds(221, 45, 406, 60);
 		contentPane.add(highscoresTitle);
-		
+
 		JLabel nameLabel = new JLabel("Name");
 		nameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		nameLabel.setFont(new Font("Trajan Pro", Font.PLAIN, 20));
 		nameLabel.setForeground(Color.WHITE);
 		nameLabel.setBounds(121, 150, 125, 38);
 		contentPane.add(nameLabel);
-		
+
 		JLabel lblScore = new JLabel("Score");
 		lblScore.setForeground(Color.WHITE);
 		lblScore.setFont(new Font("Trajan Pro", Font.PLAIN, 20));
 		lblScore.setHorizontalAlignment(SwingConstants.LEFT);
 		lblScore.setBounds(610, 150, 94, 26);
 		contentPane.add(lblScore);
-		
+
 		name1 = new JTextArea();
 		name1.setEditable(false);
 		name1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
@@ -189,7 +203,7 @@ public class HighscoresScreen extends JFrame {
 		name1.setBackground(Color.BLACK);
 		name1.setBounds(121, 200, 200, 500);
 		contentPane.add(name1);
-		
+
 		score1 = new JTextArea();
 		score1.setEditable(false);
 		score1.setForeground(Color.WHITE);
@@ -197,20 +211,21 @@ public class HighscoresScreen extends JFrame {
 		score1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
 		score1.setBounds(610, 200, 500, 500);
 		contentPane.add(score1);
-		
+
 		JLabel backFromHighscore = new JLabel("Back");
 		backFromHighscore.setHorizontalAlignment(SwingConstants.CENTER);
 		backFromHighscore.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
 		backFromHighscore.setForeground(Color.WHITE);
 		backFromHighscore.setBounds(381, 500, 86, 14);
 		contentPane.add(backFromHighscore);
-		
+
 		JButton button = new JButton("");
 		button.setBorder(BorderFactory.createEmptyBorder());
 		button.setContentAreaFilled(false);
 		BufferedImage buttonIcon2;
 		try {
-			buttonIcon2 = ImageIO.read(new File("C:/megaklick/whiteTriangle.png"));
+			buttonIcon2 = ImageIO.read(new File(
+					"resources/whiteTriangle.png"));
 			button = new JButton(new ImageIcon(buttonIcon2));
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -226,9 +241,24 @@ public class HighscoresScreen extends JFrame {
 			e1.printStackTrace();
 		}
 		
+		String fnames = readFile("nameAndScore.txt");
+		if (fnames != null){
+			String[] lines = fnames.split("\r\n");
+			for (int i=0;i<10;i+=1){
+				try{
+					String[] lineseg = lines[i].split("\t");
+					names[i] = lineseg[0];
+					scores[i] = Integer.parseInt(lineseg[1]);
+				}catch(ArrayIndexOutOfBoundsException e){
+					continue;
+				}
+			}
+			UpdateScores();
+		}
+
 	}
-	
+
 	JTextArea name1 = null;
-	
+
 	JTextArea score1 = null;
 }

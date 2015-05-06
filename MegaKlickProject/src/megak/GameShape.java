@@ -5,18 +5,23 @@ import javax.swing.JButton;
 public class GameShape extends JButton {
 	int id;
 	boolean correct;
-	public void SetID(int val){
+
+	public void SetID(int val) {
 		id = val;
 	}
-	public int GetID(){
+
+	public int GetID() {
 		return id;
 	}
-	public void SetCorrect(boolean val){
+
+	public void SetCorrect(boolean val) {
 		correct = val;
 	}
-	public boolean IsCorrect(){
+
+	public boolean IsCorrect() {
 		return correct;
 	}
+
 	/**
 	 * 
 	 */

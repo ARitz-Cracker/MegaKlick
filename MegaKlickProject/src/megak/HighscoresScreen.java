@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 //import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -23,16 +24,49 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 //import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 
 public class HighscoresScreen extends JFrame {
 	private GameScreen gameScreen;
+	
+	String names[] = {"Nobody"};
+	int scores[] = {0};
+	void SortScores(){
+		String newNames[] = {}; 
+		int newScores[] = {};
+		int maxScore = 0;
+		int len = scores.length;
+		
+		while (newScores.length < len){
+			for (int i=0;i<len;i+=1){
+				if (scores[i] >= scores[maxScore]){
+					newScores[newScores.length] = scores[i];
+					newNames[newNames.length] = names[i];
+					scores[i] = -2147483647;
+					names[i] = "NULL";
+				}
+			}
+		}
+		scores = newScores;
+		names = newNames;
+	}
 	public void TakeScore(String player, int score){
+		if (scores.length != names.length){
+			System.err.println("scores.length != names.length... wtf?");
+			JOptionPane.showMessageDialog(null,"The names array's length is not equal to that of the scores array.\n(There are names without scores, or scores without names)","Something strange happened.", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		scores[scores.length] = score;
+		names[names.length] = player;
+		
 		
 		//String scoreGet = String.valueOf(gameScreen.clickedButtons);
 		
+		/*
 		name1.setText(name1.getText()+"\n\n" + player);
 		score1.setText(score1.getText()+"\n\n"+ score);
+		*/
 	}
 	
 	//int currentSessionScore = GameScreen.clickedButtons;

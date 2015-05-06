@@ -99,7 +99,12 @@ public class HighscoresScreen extends JFrame {
 		}
 
 	}
-	
+	public int GetMaximumScore(){
+		return scores[0]; // The first score on the table is the maximum
+	}
+	public int GetMinimumScore(){
+		return scores[9]; // The last score on the table is the minimum
+	}
 	public void TakeScore(String player, int score) {
 		int minScore = 0;
 		for (int i=0;i<10;i+=1){
@@ -107,8 +112,10 @@ public class HighscoresScreen extends JFrame {
 				minScore = i;
 			}
 		}
-		scores[minScore] = score;
-		names[minScore] = player;
+		if (score > scores[minScore]){
+			scores[minScore] = score;
+			names[minScore] = player;
+		}
 		UpdateScores();
 		/*
 		 * //name1.setText(name1.getText()+"\n\n" + player);

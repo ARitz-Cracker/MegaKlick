@@ -280,16 +280,19 @@ public class GameScreen extends JFrame {
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"Unable to set High Score because the High Score screen doesn't exist. (Your score was "
-											+ clickedButtons + ", btw)",
+									"Unable to set High Score because the High Score screen doesn't exist. (Your score was " + clickedButtons + ", btw)",
 									"Warning", JOptionPane.ERROR_MESSAGE);
 				} else {
-					boolean needinput = true;
+					boolean needinput = hsScreen.GetMinimumScore() < clickedButtons;
+					if (!needinput){
+						this.setVisible(false);
+						JOptionPane.showMessageDialog(null,
+								"Game Over. You didn't get a High Score this time...", "Sorry...",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
 					String input;
-					System.out.println("User must enter HS name");
 					while (needinput) {
-						input = JOptionPane
-								.showInputDialog("You got a high score! Enter your name so everyone can see good you are at clicking things!");
+						input = JOptionPane.showInputDialog("You got a high score! Enter your name so everyone can see good you are at clicking things!");
 						if (input == null) {
 							needinput = false;
 							this.setVisible(false);

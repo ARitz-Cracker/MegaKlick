@@ -1,6 +1,5 @@
 package megak;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -27,9 +26,6 @@ import java.io.IOException;
 import javax.swing.SwingConstants;
 
 import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import megak.GameScreen;
 
 public class MainMenu extends JFrame {

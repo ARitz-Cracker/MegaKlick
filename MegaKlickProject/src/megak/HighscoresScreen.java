@@ -27,14 +27,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 //import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.io.PrintWriter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class HighscoresScreen extends JFrame {
-	private GameScreen gameScreen;
-
 	String names[] = { "NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL" };
 	int scores[] = { Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE };
 
@@ -126,7 +123,6 @@ public class HighscoresScreen extends JFrame {
 	// int currentSessionScore = GameScreen.clickedButtons;
 
 	public void setGameScreen(GameScreen gameScreen) {
-		this.gameScreen = gameScreen;
 	}
 
 	/**

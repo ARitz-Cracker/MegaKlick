@@ -25,8 +25,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 //import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.management.RuntimeMXBean;
-import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 

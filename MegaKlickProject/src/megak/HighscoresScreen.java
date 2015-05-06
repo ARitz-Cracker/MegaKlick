@@ -22,9 +22,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 //import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.io.PrintWriter;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class HighscoresScreen extends JFrame {
@@ -51,6 +56,24 @@ public class HighscoresScreen extends JFrame {
 		scores = newScores;
 		names = newNames;
 	}
+	
+	 public static String readFile(String filename)
+	 {
+	    String content = null;
+	    File file = new File(filename); //for ex foo.txt
+	    try {
+	        FileReader reader = new FileReader(file);
+	        char[] chars = new char[(int) file.length()];
+	        reader.read(chars);
+	        content = new String(chars);
+	        reader.close();
+	    } catch (IOException e) {
+	        //e.printStackTrace();
+	        JOptionPane.showMessageDialog(null,e.getMessage(),"IOException", JOptionPane.ERROR_MESSAGE);
+	    }
+	    return content;
+	 }
+	
 	public void TakeScore(String player, int score){
 		if (scores.length != names.length){
 			System.err.println("scores.length != names.length... wtf?");
@@ -61,11 +84,22 @@ public class HighscoresScreen extends JFrame {
 		names[names.length] = player;
 		
 		
-		//String scoreGet = String.valueOf(gameScreen.clickedButtons);
+		try{
+			String playerName = player;
+			int playerScore = score;
+			FileWriter fileWrite = new FileWriter("nameAndScore.txt", true);
+			PrintWriter print = new PrintWriter(fileWrite);
+			print.print(playerName+"\t"+playerScore+"\r\n");
+			print.close();
+			String readScores = readFile("nameAndScore.txt");
+				}
+				catch(IOException e1){
+					e1.printStackTrace();
+				}
 		
 		/*
-		name1.setText(name1.getText()+"\n\n" + player);
-		score1.setText(score1.getText()+"\n\n"+ score);
+		//name1.setText(name1.getText()+"\n\n" + player);
+		//score1.setText(score1.getText()+"\n\n"+ score);
 		*/
 	}
 	
@@ -106,6 +140,15 @@ public class HighscoresScreen extends JFrame {
 	 * Create the frame.
 	 */
 	public HighscoresScreen() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				String names = readFile("nameAndScore.txt");
+				
+				name1.setText(readFile("nameAndScore.txt"));
+				score1.setText(readFile("nameAndScore.txt"));
+			}
+		});
 		setTitle("MegaKlick - Highscores");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -144,7 +187,7 @@ public class HighscoresScreen extends JFrame {
 		name1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
 		name1.setForeground(Color.WHITE);
 		name1.setBackground(Color.BLACK);
-		name1.setBounds(121, 170, 200, 500);
+		name1.setBounds(121, 200, 200, 500);
 		contentPane.add(name1);
 		
 		score1 = new JTextArea();
@@ -152,7 +195,7 @@ public class HighscoresScreen extends JFrame {
 		score1.setForeground(Color.WHITE);
 		score1.setBackground(Color.BLACK);
 		score1.setFont(new Font("Trajan Pro", Font.PLAIN, 14));
-		score1.setBounds(610, 170, 500, 500);
+		score1.setBounds(610, 200, 500, 500);
 		contentPane.add(score1);
 		
 		JLabel backFromHighscore = new JLabel("Back");

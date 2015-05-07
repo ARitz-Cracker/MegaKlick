@@ -182,7 +182,7 @@ public class GameScreen extends JFrame {
 						if (Math.random() > spawnTime
 								/ ((Math.sin((double) System
 										.currentTimeMillis()
-										/ (30000 * ((System.currentTimeMillis() - startTime) / 100000))) * 620) + 800)) {
+										/ (30000 * ((System.currentTimeMillis() - startTime) / 100000))) * 620) + 635)) {
 							spawnTime = (long) (spawnTime * 1.2);
 							System.out.println("Slower");
 						} else {

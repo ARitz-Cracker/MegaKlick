@@ -79,7 +79,7 @@ public class InstructionsScreen extends JFrame {
 		lblInstructions.setFont(new Font("Trajan Pro", Font.PLAIN, 36));
 		lblInstructions.setForeground(Color.WHITE);
 		lblInstructions.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInstructions.setBounds(286, 187, 276, 37);
+		lblInstructions.setBounds(286, 140, 276, 37);
 		contentPane.add(lblInstructions);
 
 		JTextArea instruction = new JTextArea();
@@ -90,7 +90,7 @@ public class InstructionsScreen extends JFrame {
 		instruction.setAlignmentY(CENTER_ALIGNMENT);
 		instruction
 				.setText("The goal of MegaKlick is to survive as long as possible by \nclicking the correct shapes. The correct shape will be \ndesignated by the 'goal' indicator in the top right-hand \ncorner. The game ends when you run out of life points.\n\nClicking a correct shape: +4 life points\nClicking an incorrect shape: -5 life points\nMissing a correct shape: -7 life points");
-		instruction.setBounds(180, 260, 558, 187);
+		instruction.setBounds(145, 188, 558, 187);
 		contentPane.add(instruction);
 
 		JButton btnBack = new JButton("");

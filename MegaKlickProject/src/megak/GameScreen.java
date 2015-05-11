@@ -39,10 +39,7 @@ import javax.swing.JProgressBar;
 
 public class GameScreen extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1233138023960243746L;
+	private static final long serialVersionUID = 1233138023960243746L; // Eclipse complains if this isn't here.
 
 	//self!
 	private JPanel contentPane;
@@ -81,14 +78,6 @@ public class GameScreen extends JFrame {
 	
 	// Displays a countdown on the screen, then starts the game.
 	public void StartGame() {
-		/*
-		 * while (true){ //
-		 * //System.out.println((double)System.currentTimeMillis()/1000);
-		 * System.
-		 * out.println(Math.sin((double)System.currentTimeMillis()/30000));
-		 * 
-		 * if (false){break;} }
-		 */
 		try {
 			if (btnStartGeam != null) {
 				btnStartGeam.setVisible(false); //If the test button exists, REMOVE FROM PREMISIS
@@ -96,33 +85,33 @@ public class GameScreen extends JFrame {
 			}
 			this.setVisible(true);
 			playingGame = true;
-			shapeGoal = shapeFiles[(int) (Math.random() * (shapeFiles.length - 1))];
+			shapeGoal = shapeFiles[(int) (Math.random() * (shapeFiles.length - 1))]; // Random shape goal
 			BufferedImage buttonIcon2;
 			buttonIcon2 = ImageIO.read(new File("resources/" + shapeGoal));
 			playButton.setIcon(new ImageIcon(buttonIcon2));
 			scoreText.setText("Score: 0");
 			spawnTime = 2000;
 			timer = new Timer();
-			timer.schedule(new TimerTask() {
+			timer.schedule(new TimerTask() { //3!
 				@Override
 				public void run() {
 					countdownText.setText("3");
 					countdownText.setVisible(true);
 				}
 			}, (long) (1000));
-			timer.schedule(new TimerTask() {
+			timer.schedule(new TimerTask() { //2!
 				@Override
 				public void run() {
 					countdownText.setText("2");
 				}
 			}, (long) (2000));
-			timer.schedule(new TimerTask() {
+			timer.schedule(new TimerTask() { //1!
 				@Override
 				public void run() {
 					countdownText.setText("1");
 				}
 			}, (long) (3000));
-			timer.schedule(new TimerTask() {
+			timer.schedule(new TimerTask() { //GO GO GO!
 				@Override
 				public void run() {
 					countdownText.setText("GO!");
@@ -191,6 +180,7 @@ public class GameScreen extends JFrame {
 						}
 					}
 				}
+				//Set values back to thier default.
 				clickedButtons = 0;
 				life = 50;
 				healthBar.setValue(50);
@@ -439,7 +429,6 @@ public class GameScreen extends JFrame {
 					"Unable to load files: " + e.getMessage(), "IOException",
 					JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
-			// e.printStackTrace();
 		}
 
 	}

@@ -166,10 +166,10 @@ public class GameScreen extends JFrame {
 					String input;
 					while (needinput) {
 						input = JOptionPane.showInputDialog("You got a high score! Enter your name so everyone can see good you are at clicking things!");
-						if (input == null) {
+						if (input == null) { // User has clicked cancel
 							needinput = false;
 							this.setVisible(false);
-						} else if (input.length() > 0) {
+						} else if (input.length() > 0) { // User entered a valid name
 							hsScreen.TakeScore(input, clickedButtons);
 							needinput = false;
 							this.setVisible(false);

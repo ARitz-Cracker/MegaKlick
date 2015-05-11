@@ -1,3 +1,4 @@
+//GameShape.java a JButton with a few more functions useful to the game.
 package megak;
 
 import javax.swing.JButton;
